@@ -9,27 +9,65 @@
 // 
 let navButtons = document.querySelectorAll('#buttonHolder img'),
 	theHeadline = document.querySelector('#headLine h1'),
-	puzzleBoard = document.querySelector('.puzzle-board');
-
+	// collect all of the draggable pieces in the dragzone
+	puzzlePieces = document.querySelectorAll('.puzzle-pieces img'),
+	// collect ALL of the drop zone elements
+	dropZones = document.querySelectorAll('.drop-zone'),
+	puzzleBoard = document.querySelector('.puzzle-board'),
+	tempLink = document.querySelector('a'),
+	// set up a global variable to store a reference to the dragged piece
+	// I need to know this later when I drop it inon a zone
+	draggedPiece;
 
 
 // functions go in the middle
 // these are the "actions" that should happen
 function changeBGimage() {
+	
+	let newBGPath = "images/backGround" + this.id + ".jpg";
 	debugger;
 	
+
 	// object.property = "new value"
 	// theHeadline.textContent = "Drag and Drop is Fun!";
 	// theHeadline.classList.add("orange-headline");
 
 	// change background image inthe drop zone
-	puzzleBoard.style.backgroundImage = 'url("../images/backGround"' + this.id + '".jpg")';
+
+	// the `${}` is called a JavaScript Template String - whatever is inside the curly braces is evaluated at runtime and terpolated ( replaces the bracket notation)
+
+	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
 }
 
+function handleStartDrag() {
+	draggedPiece = this;
 
+}
+	// store the element 
+	
 
+function handleDragOver(e) {
+	e.preventDefault();
+}
+
+function handleDrop(e) {
+	// block the default
+	e.preventDefault();
+	e.target.appendChild(draggedPiece);
+}
 // event handling at the bottom => how things react when you use the targets
 // how is the user going to interact with the lemements / controls you provide?
 
 // process a collection of elements and add an event handler to each
 navButtons.forEach(button => button.addEventListener('click', changeBGimage));
+
+puzzlePieces.forEach(piece => piece.addEventListener('dragstart', handleStartDrag));
+// add the dragover handling to the drop zone
+dropZones.forEach(zone => zone.addEventListener('dragover', handleDragOver));
+dropZones.forEach(zone => zone.addEventListener('drop', handleDrop));
+
+function blockDefaultBehaviour(e) {
+	e.preventDefault();
+}
+// temp handling
+tempLink.addEventListener('click', blockDefaultBehaviour)

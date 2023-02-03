@@ -34,8 +34,8 @@ function changeBGimage() {
 
 	// change background image inthe drop zone
 
-	// the `${}` is called a JavaScript Template String - whatever is inside the curly braces is evaluated at runtime and terpolated ( replaces the bracket notation)
 
+	// the `${}` is called a JavaScript Template String - whatever is inside the curly braces is evaluated at runtime and terpolated ( replaces the bracket notation)
 	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
 }
 

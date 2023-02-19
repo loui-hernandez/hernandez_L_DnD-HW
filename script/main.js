@@ -36,9 +36,23 @@ function changeBGimage() {
 
 
 // the `${}` is called a JavaScript Template String - whatever is inside the curly braces is evaluated at runtime and terpolated ( replaces the bracket notation)
-	
 puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
+
+	dropZones.forEach(item => {item.innerHTML = ""});
+
+	pBoard = document.querySelector(".puzzle-pieces");
+
+	pBoard.innerHTML = "";
+
+		puzzlePieces[0].src = `images/topLeft${this.id}.jpg`;
+		puzzlePieces[1].src = `images/topRight${this.id}.jpg`;
+		puzzlePieces[2].src = `images/bottomLeft${this.id}.jpg`;
+		puzzlePieces[3].src = `images/bottomRight${this.id}.jpg`;
+		puzzlePieces.forEach(item => pBoard.appendChild(item));
+
 }
+
+
 
 function handleDrag(e) {
 	console.log('started dragging');

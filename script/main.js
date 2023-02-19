@@ -24,37 +24,55 @@ let navButtons = document.querySelectorAll('#buttonHolder img'),
 // these are the "actions" that should happen
 function changeBGimage() {
 	
-	let newBGPath = "images/backGround" + this.id + ".jpg";
-	debugger;
+// let newBGPath = "images/backGround" + this.id + ".jpg";
+// 	debugger;
 	
 
-	// object.property = "new value"
-	// theHeadline.textContent = "Drag and Drop is Fun!";
-	// theHeadline.classList.add("orange-headline");
+// object.property = "new value"
+// theHeadline.textContent = "Drag and Drop is Fun!";
+// theHeadline.classList.add("orange-headline");
 
-	// change background image inthe drop zone
+// change background image inthe drop zone
 
 
-	// the `${}` is called a JavaScript Template String - whatever is inside the curly braces is evaluated at runtime and terpolated ( replaces the bracket notation)
-	puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
-}
-
-function handleStartDrag() {
-	draggedPiece = this;
-
-}
-	// store the element 
+// the `${}` is called a JavaScript Template String - whatever is inside the curly braces is evaluated at runtime and terpolated ( replaces the bracket notation)
 	
+puzzleBoard.style.backgroundImage = `url(images/backGround${this.id}.jpg)`;
+}
+
+function handleDrag(e) {
+	console.log('started dragging');
+	e.dataTransfer.setData(draggedPiece, this.id);
+}
+
+function handleStartDrag(e) {
+	console.log('started dragging over');
+	e.dataTransfer.setData(draggedPiece, this.id);
+}
 
 function handleDragOver(e) {
 	e.preventDefault();
 }
 
+
+
 function handleDrop(e) {
-	// block the default
 	e.preventDefault();
-	e.target.appendChild(draggedPiece);
+	console.log('this piece was dropped');
+
+	if (e.target.childElementCount == 0 && !(e.target instanceof HTMLImageElement)){
+	
+		let droppedElId = e.dataTransfer.getData(draggedPiece);
+	
+		this.appendChild(document.querySelector(`#${droppedElId}`));
+	} 
 }
+
+function handleDragEnd(e) {
+	console.log('dragging ended');
+}
+
+
 // event handling at the bottom => how things react when you use the targets
 // how is the user going to interact with the lemements / controls you provide?
 
